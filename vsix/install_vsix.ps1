@@ -6,7 +6,7 @@ Write-Host "visualStudioInstallation: $visualStudioInstallation"
 Write-Host "vsixInstaller: $vsixInstaller"
 Write-Host "localArtifactPath: ${env:localArtifactPath}"
 
-Start-Process -FilePath "$vsixInstaller" -ArgumentList "/q /a ${env:localArtifactPath}" -Wait -PassThru;
+Start-Process -FilePath "$vsixInstaller" -ArgumentList "/q /a /sp /logFile:\"C:\projects\install.log\" ${env:localArtifactPath}" -Wait -PassThru;
 
 Start-Sleep -s 20
 "OK" | Write-Host -ForegroundColor Green
