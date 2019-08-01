@@ -6,9 +6,11 @@ Write-Host "visualStudioInstallation: $visualStudioInstallation"
 Write-Host "vsixInstaller: $vsixInstaller"
 Write-Host "localArtifactPath: ${env:localArtifactPath}"
 
-Start-Process -FilePath "$vsixInstaller" -ArgumentList "/q /a /sp /logFile:C:\projects\install.log ${env:localArtifactPath}" -Wait -PassThru;
+$logFile = "C:\projects\install.log"
+New-Item $logFile -ItemType file
+Start-Process -FilePath "$vsixInstaller" -ArgumentList "/q /a /sp /logFile:$logFile ${env:localArtifactPath}" -Wait -PassThru;
 
-$content = Get-Content -Path C:\projects\install.log
+$content = Get-Content -Path $logFile
 Write-Host "log output: $content"
 
 Start-Sleep -s 20
