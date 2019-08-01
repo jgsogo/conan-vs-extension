@@ -39,7 +39,6 @@ for:
     build_script:
       - ps: .\vsix\download_artifact.ps1
       - ps: .\vsix\install_vsix.ps1
-      - ps: Start-Sleep -s 5
     test_script:
       - ps: .\vsix\check_installed.ps1
       - ps: write-host "Checked for ${env:APPVEYOR_BUILD_WORKER_IMAGE}"

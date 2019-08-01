@@ -7,4 +7,5 @@ Write-Host "vsixInstaller: $vsixInstaller"
 Write-Host "localArtifactPath: ${env:localArtifactPath}"
 
 . $vsixInstaller /q /a ${env:localArtifactPath}
+Start-Sleep -s 20
 "OK" | Write-Host -ForegroundColor Green
