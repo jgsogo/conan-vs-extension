@@ -6,5 +6,5 @@ Write-Host "visualStudioInstallation: $visualStudioInstallation"
 Write-Host "vsixInstaller: $vsixInstaller"
 Write-Host "localArtifactPath: ${env:localArtifactPath}"
 
-. $vsixInstaller -ArgumentList /q /a ${env:localArtifactPath}
+. $vsixInstaller /q /a ${env:localArtifactPath}
 "OK" | Write-Host -ForegroundColor Green
