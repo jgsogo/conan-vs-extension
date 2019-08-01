@@ -8,5 +8,8 @@ Write-Host "localArtifactPath: ${env:localArtifactPath}"
 
 Start-Process -FilePath "$vsixInstaller" -ArgumentList "/q /a /sp /logFile:\"C:\projects\install.log\" ${env:localArtifactPath}" -Wait -PassThru;
 
+$content = Get-Content -Path C:\projects\install.log
+Write-Host "log output: $content"
+
 Start-Sleep -s 20
 "OK" | Write-Host -ForegroundColor Green
