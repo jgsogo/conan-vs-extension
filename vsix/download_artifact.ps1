@@ -6,11 +6,12 @@ $headers = @{
 }
 $accountName = $env:APPVEYOR_ACCOUNT_NAME
 $projectSlug = $env:APPVEYOR_PROJECT_SLUG
+$buildId = $env:APPVEYOR_BUILD_ID
 
 $downloadLocation = 'C:\projects'
 
 # get project with last build details
-$project = Invoke-RestMethod -Method Get -Uri "$apiUrl/projects/$accountName/$projectSlug" -Headers $headers
+$project = Invoke-RestMethod -Method Get -Uri "$apiUrl/projects/$accountName/$projectSlug/builds/$buildId" -Headers $headers
 
 # we assume here that build has a single job
 # get this job id
