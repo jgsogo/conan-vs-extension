@@ -34,4 +34,8 @@ $url = "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName"
 Write-Host "URL: $url"
 Invoke-RestMethod -Method Get -Uri "$apiUrl/buildjobs/$jobId/artifacts/$artifactFileName" `
 -OutFile $localArtifactPath -Headers @{ "Authorization" = "Bearer $token" }
+
+$fileSize = Get-Childitem -file $localArtifactPath | select length
+Write-Host "Size '$localArtifactPath': $fileSize"
+
 "OK" | Write-Host -ForegroundColor Green
