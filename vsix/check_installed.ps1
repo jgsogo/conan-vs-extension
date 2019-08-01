@@ -14,21 +14,33 @@ else
 Write-Host "vcvars64: $vcvars64"
 Write-Host "devenv: $devenv"
 
-# Set-AppveyorBuildVariable "vcvars64" $vcvars64
-
 . "$vcvars64"
-$output = . "$devenv" /ConanVisualStudioVersion /?
 
-$pattern = "^${env:APPVEYOR_BUILD_VERSION}\s+Microsoft Visual Studio"  # Version + output from /? command
-$regex = New-Object System.Text.RegularExpressions.Regex $pattern
-$result = $regex.Matches($output)
+$ntimes = 5
+For ($i=1; $i -le $ntimes; $i++) {  # Run 10 times
+    $output = . "$devenv" /ConanVisualStudioVersion /?
 
-if ([string]::IsNullOrEmpty($result))
-{
-    "FAILURE" | Write-Host -ForegroundColor Red
-    Write-Host "Expected version: ${env:APPVEYOR_BUILD_VERSION}"
-    Write-Host "Output was: $output"
-    $host.SetShouldExit(-1)
-    exit
+    $pattern = "^${env:APPVEYOR_BUILD_VERSION}\s+Microsoft Visual Studio"  # Version + output from /? command
+    $regex = New-Object System.Text.RegularExpressions.Regex $pattern
+    $result = $regex.Matches($output)
+
+    if ([string]::IsNullOrEmpty($result))
+    {
+        "FAILURE $i" | Write-Host -ForegroundColor Red
+        if ($i -eq $ntimes) {
+            Write-Host "Expected version: ${env:APPVEYOR_BUILD_VERSION}"
+            Write-Host "Output was: $output"
+            $host.SetShouldExit(-1)
+            exit
+        }
+    }
+    else {
+        "OK" | Write-Host -ForegroundColor Green
+        $host.SetShouldExit(0)
+        exit
+    }
 }
-"OK" | Write-Host -ForegroundColor Green
+
+"FAILURE" | Write-Host -ForegroundColor Red
+$host.SetShouldExit(-1)
+exit
