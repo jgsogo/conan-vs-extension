@@ -2,7 +2,7 @@ language: ruby
 rvm:
 - 2.3.1
 install:
-- bundle install
+- cd gh-pages && bundle install
 deploy:
   provider: pages
   skip_cleanup: true
