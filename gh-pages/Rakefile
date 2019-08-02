@@ -8,7 +8,7 @@ task :default do
   HTMLProofer.check_directory(
     "./_site",
     url_ignore: [/linkedin.com|php-fig.org|bower.io|bost.ocks.org|elementary.io/],
-    url_swap: ["\/conan-vs-extension:"]
+    url_swap: ["\/conan-vs-extension\/:\/"]
   ).run
   puts "Jekyll successfully built"
 end
