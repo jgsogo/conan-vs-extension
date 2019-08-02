@@ -1,6 +1,6 @@
 title: Your blog title
 email: your.email@gmail.com
-baseurl: "/conan-vs-extension"
+baseurl: /conan-vs-extension
 
 # many other settings
 # ...
